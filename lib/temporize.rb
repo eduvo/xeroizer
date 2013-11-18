@@ -3,7 +3,7 @@ require 'dalli'
 module Temporize
   extend self
 
-  def check_and_wait
+  def check_and_wait(key)
     stamp = dalli.get "#{key}-stamp"
     if stamp
       diff = Time.now.to_i - stamp
@@ -25,10 +25,6 @@ module Temporize
   def dalli
     options = { :namespace => Rails.application.class.name}
     @__dalli ||= Dalli::Client.new('localhost:11211', options)
-  end
-
-  def key
-    @__key ||= YAML.load_file("#{Rails.root}/config/xero.yml")[Rails.env]["key"]
   end
 
 end
