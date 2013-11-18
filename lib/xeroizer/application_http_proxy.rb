@@ -13,14 +13,17 @@ module Xeroizer
       end
 
       def http_get(extra_params = {})
+        Temporize.check_and_wait
         application.http_get(application.client, url, extra_params)
       end
 
       def http_put(xml, extra_params = {})
+        Temporize.check_and_wait
         application.http_put(application.client, url, xml, extra_params)
       end
 
       def http_post(xml, extra_params = {})
+        Temporize.check_and_wait
         application.http_post(application.client, url, xml, extra_params)
       end
       
